@@ -32,10 +32,12 @@ public class MainActivity extends AppCompatActivity {
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
     TwitterSession session = Twitter.getSessionManager().getActiveSession();
-    TwitterAuthToken authToken = session.getAuthToken();
-    //ToKenが存在し、なおかつ有効期限が切れていなければ次の画面に遷移する。
-    if (authToken != null && !authToken.isExpired()) {
-      next();
+    if (session != null) {
+      TwitterAuthToken authToken = session.getAuthToken();
+      //ToKenが存在し、なおかつ有効期限が切れていなければ次の画面に遷移する。
+      if (authToken != null && !authToken.isExpired()) {
+        next();
+      }
     }
 
     mBinding.twitterLoginButton.setCallback(new Callback<TwitterSession>() {
